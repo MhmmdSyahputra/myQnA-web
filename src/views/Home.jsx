@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom'
 import Hero from '../Components/Hero';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import toast from 'siiimple-toast';
 import 'siiimple-toast/dist/style.css';// style required
 
@@ -11,9 +12,16 @@ const Home = () => {
   const [input, setInput] = useState("")
   const [disable, setDisable] = useState(true)
   const [linkgroup, setLinkgroup] = useState("")
+  const [inputsearch, setInputsearch] = useState("")
+  const [pesansearch, setPesansearch] = useState("")
 
-  const inputHandler = (e) => {
-    setInput(e.target.value)
+  const search = () => {
+    if (inputsearch === "programming") {
+      navigate(`/group/programming`);
+    } else {
+      setInputsearch("")
+      setPesansearch("Group Tidak ditemukan!")
+    }
   }
 
   const createGroup = () => {
@@ -53,8 +61,9 @@ const Home = () => {
               <Card.Title>Search Group QNA</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">Search Group</Card.Subtitle>
               <Card.Text>
-                <input type="text" className='form-control mb-4' placeholder='Name Group' />
-                <button className='btn btn-primary'>Search</button>
+                <input type="text" onChange={e => setInputsearch(e.target.value)} value={inputsearch} className='form-control ' placeholder='Name Group' />
+                <div className="pesan text-start text-danger mb-4">{pesansearch}</div>
+                <button onClick={() => search()} className='btn btn-primary'>Search</button>
               </Card.Text>
             </Card.Body>
           </Card>
@@ -66,10 +75,11 @@ const Home = () => {
               <Card.Title>Create New Group QNA</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">New Group</Card.Subtitle>
               <Card.Text>
-                <input type="text" value={input} onChange={e => setInput(e.target.value)} className='form-control mb-4' placeholder='Name Group' />
+                <input type="text" value={input} onChange={e => setInput(e.target.value)} className='form-control mb-4' placeholder='New Name Group' />
                 <button onClick={() => createGroup()} disabled={disable} style={{ cursor: disable == true ? 'not-allowed' : "pointer" }} className='btn btn-primary'>Create</button>
               </Card.Text>
-              <p>Link : <a href={linkgroup}>{linkgroup}</a></p>
+
+              <p>Link : <Link to={linkgroup}>{linkgroup}</Link></p>
             </Card.Body>
           </Card>
         </div>

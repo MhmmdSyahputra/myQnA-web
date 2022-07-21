@@ -79,7 +79,7 @@ const Home = () => {
                 <button onClick={() => createGroup()} disabled={disable} style={{ cursor: disable == true ? 'not-allowed' : "pointer" }} className='btn'>Create</button>
               </Card.Text>
 
-              <p>Link : <Link to={linkgroup}>{linkgroup}</Link></p>
+              <p className='text-light'>Link : <Link className='text-light' to={linkgroup}>{linkgroup}</Link></p>
             </Card.Body>
           </Card>
         </div>

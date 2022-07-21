@@ -4,6 +4,7 @@ import Home from "../views/Home"
 import { Route, Routes } from "react-router-dom";
 import Header from "../Components/Header";
 import HeaderNav from "../Components/Header";
+import Footer from "../Components/Footer";
 const Pages = () => {
     return (
         <>
@@ -12,6 +13,7 @@ const Pages = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/group/:id' element={<Group />} />
             </Routes>
+            <Footer />
         </>
     )
 }

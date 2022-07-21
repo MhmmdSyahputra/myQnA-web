@@ -8,7 +8,7 @@ export default class HeaderNav extends Component {
     render() {
         return (
             <>
-                <Navbar className='shadow' bg="dark" variant="dark">
+                <Navbar className='shadow' style={{ backgroundColor: '#6D62FF' }} variant="dark">
                     <Container>
                         <Navbar.Brand href="#home">My QNA</Navbar.Brand>
                         <Nav className="me-auto">

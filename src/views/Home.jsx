@@ -55,28 +55,28 @@ const Home = () => {
     <>
       <Hero />
       <div className="row m-auto d-flex justify-content-center">
-        <div className="col-md-3">
-          <Card className='m-auto mt-5' style={{ width: '20rem' }}>
+        <div className="col-md-4 mx-5">
+          <Card className='card-home card-search m-auto mt-5' style={{ width: '25rem' }}>
             <Card.Body>
               <Card.Title>Search Group QNA</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">Search Group</Card.Subtitle>
               <Card.Text>
-                <input type="text" onChange={e => setInputsearch(e.target.value)} value={inputsearch} className='form-control ' placeholder='Name Group' />
+                <input type="text" onChange={e => setInputsearch(e.target.value.replace(/\s/g, ''))} value={inputsearch} className='form-control ' placeholder='Name Group' />
                 <div className="pesan text-start text-danger mb-4">{pesansearch}</div>
-                <button onClick={() => search()} className='btn btn-primary'>Search</button>
+                <button onClick={() => search()} className='btn'>Search</button>
               </Card.Text>
             </Card.Body>
           </Card>
         </div>
 
-        <div className="col-md-3 ">
-          <Card className='m-auto mt-5' style={{ width: '20rem' }}>
+        <div className="col-md-4">
+          <Card className='card-home card-create mt-5' style={{ width: '25rem' }}>
             <Card.Body>
               <Card.Title>Create New Group QNA</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">New Group</Card.Subtitle>
               <Card.Text>
-                <input type="text" value={input} onChange={e => setInput(e.target.value)} className='form-control mb-4' placeholder='New Name Group' />
-                <button onClick={() => createGroup()} disabled={disable} style={{ cursor: disable == true ? 'not-allowed' : "pointer" }} className='btn btn-primary'>Create</button>
+                <input type="text" value={input} onChange={e => setInput(e.target.value.replace(/\s/g, ''))} className='form-control mb-4' placeholder='New Name Group' />
+                <button onClick={() => createGroup()} disabled={disable} style={{ cursor: disable == true ? 'not-allowed' : "pointer" }} className='btn'>Create</button>
               </Card.Text>
 
               <p>Link : <Link to={linkgroup}>{linkgroup}</Link></p>

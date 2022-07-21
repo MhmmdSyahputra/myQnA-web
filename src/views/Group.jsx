@@ -9,7 +9,7 @@ const Group = () => {
       {/* <p>INI Group {id} </p> */}
       <div className="container">
         <div className="row">
-          <div className="col-md-8 m-auto bg-dark text-light p-3" style={{ height: '90vh' }}>
+          <div className="col-md-8 m-auto bg-dark text-light p-3" style={{ height: '91.2vh' }}>
             <h2 className='mb-3'>Group QnA {id}</h2>
 
             <div className="all-chat shadow" style={{ height: '350px', overflowY: 'scroll' }}>

@@ -56,7 +56,7 @@ const Home = () => {
       <Hero />
       <div className="row m-auto d-flex justify-content-center">
         <div className="col-md-4 mx-5">
-          <Card className='card-home card-search m-auto mt-5' style={{ width: '25rem' }}>
+          <Card className='card-home card-search m-auto mt-5'>
             <Card.Body>
               <Card.Title>Search Group QNA</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">Search Group</Card.Subtitle>
@@ -70,7 +70,7 @@ const Home = () => {
         </div>
 
         <div className="col-md-4">
-          <Card className='card-home card-create mt-5' style={{ width: '25rem' }}>
+          <Card className='card-home card-create mt-5'>
             <Card.Body>
               <Card.Title>Create New Group QNA</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">New Group</Card.Subtitle>

@@ -8,7 +8,7 @@ body {
 }
 
 .card-home{
-  width: 25rem; 
+  width: 100%; 
   height: 15rem;
   border-radius: 50px;
   padding: 10px;

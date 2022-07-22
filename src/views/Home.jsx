@@ -6,6 +6,9 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import toast from 'siiimple-toast';
 import 'siiimple-toast/dist/style.css';// style required
+import FirebaseConfig from '../config';
+import { getDatabase, ref, push } from "firebase/database";
+
 
 const Home = () => {
   let navigate = useNavigate();
@@ -28,7 +31,17 @@ const Home = () => {
     if (input === "") {
       alert("jancek")
     } else {
+
+      // ADD DATA TO FIREBASE
+      const db = getDatabase();
+      const date = new Date().getTime();
+      push(ref(db, 'groups/'), {
+        namegroup: input,
+        date: date
+      });
+
       setDisable(false)
+
       toast.success("Success ", {
         position: "top|right",
         margin: 15,

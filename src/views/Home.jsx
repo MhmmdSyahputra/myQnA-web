@@ -38,19 +38,18 @@ const Home = () => {
       push(ref(db, 'groups/'), {
         namegroup: input,
         date: date
-      });
+      }).then((docRef) => {
+        setDisable(false)
+        toast.success("Success ", {
+          position: "top|right",
+          margin: 15,
+          delay: 0,
+          duration: 2000,
+        });
+        setLinkgroup(`/group/${input}`)
+        setInput("")
+      })
 
-      setDisable(false)
-
-      toast.success("Success ", {
-        position: "top|right",
-        margin: 15,
-        delay: 0,
-        duration: 2000,
-      });
-
-      setLinkgroup(`/group/${input}`)
-      setInput("")
       // navigate(`/group/${input}`);
     }
 

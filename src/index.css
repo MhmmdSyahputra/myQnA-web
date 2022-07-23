@@ -34,10 +34,14 @@ border-top-right-radius: 0px;
 
 
 .bubble-chat{
-  border-top-right-radius: 30px;
-  border-bottom-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  border-radius: 30px;
+}
+
+.cht-right{
+  border-top-right-radius: 0px;
+}
+.cht-left{
+  border-top-left-radius: 0px;
 }
 
 code {

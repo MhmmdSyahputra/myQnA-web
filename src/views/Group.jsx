@@ -8,12 +8,13 @@ const Group = () => {
   const [inputmessege, setInputmessege] = useState("")
   const [inputname, setInputName] = useState("")
   const [allmessege, setAllmessege] = useState([]);
+  const [uid, setUid] = useState(Math.floor(Math.random() * 1000000000));
 
 
   // read all cht
   useEffect(() => {
     const db = getDatabase();
-    onValue(ref(db, 'groups/' + id), (snapshot) => {
+    onValue(ref(db, 'chat/' + id), (snapshot) => {
       setAllmessege([]);
       const data = snapshot.val()
       if (data !== null) {
@@ -23,17 +24,21 @@ const Group = () => {
       }
     });
   }, []);
+  allmessege.map((data, index) => (
+    console.log(data.name)
 
+  ), [])
+  // console.log(allmessege.name);
   // send messege
   const sendmessege = () => {
     const db = getDatabase();
     const date = new Date().getTime();
-    push(ref(db, 'groups/' + id), {
+    push(ref(db, 'chat/' + id), {
+      uid: uid,
       name: inputname,
-      namegroup: inputmessege,
+      messege: inputmessege,
       date: date
     });
-    setInputName("")
     setInputmessege("")
   }
   return (

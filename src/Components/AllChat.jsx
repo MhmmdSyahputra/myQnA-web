@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const AllChat = ({ data }) => {
     // console.log(data);
+    const [who, setWho] = useState("me")
     return (
         <>
-            <div style={{ width: '80%' }} className="bubble-chat text-start bg-light text-dark m-2 p-3 shadow">
+            <div style={{ width: '80%' }} className={"bubble-chat text-start bg-light text-dark m-2 p-3 shadow " + (who === 'me' ? 'cht-right ms-auto' : 'cht-left')}>
                 <h6 className='text-muted'>{data.name}</h6>
                 <div className="question">
-                    {data.namegroup}
+                    {data.messege}
                 </div>
             </div>
             {/* <div style={{ width: '80%' }} className="bubble-chat text-start bg-light text-dark m-2 p-3 shadow">

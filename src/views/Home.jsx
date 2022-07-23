@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import toast from 'siiimple-toast';
 import 'siiimple-toast/dist/style.css';// style required
 import FirebaseConfig from '../config';
-import { getDatabase, ref, push } from "firebase/database";
+import { getDatabase, ref, push, onValue } from "firebase/database";
 
 
 const Home = () => {
@@ -17,10 +17,24 @@ const Home = () => {
   const [linkgroup, setLinkgroup] = useState("")
   const [inputsearch, setInputsearch] = useState("")
   const [pesansearch, setPesansearch] = useState("")
+  const [allgroup, setAllgroup] = useState([])
 
   const search = () => {
-    if (inputsearch === "programming") {
-      navigate(`/group/programming`);
+    const db = getDatabase();
+    onValue(ref(db, 'groups/'), (snapshot) => {
+      setAllgroup([]);
+      const data = snapshot.val()
+      if (data !== null) {
+        Object.values(data).map((alldata) => {
+          setAllgroup((olddata) => [...olddata, alldata]);
+        })
+      }
+    })
+
+
+
+    if (inputsearch === allgroup) {
+      navigate(`/group/` + allgroup);
     } else {
       setInputsearch("")
       setPesansearch("Group Tidak ditemukan!")
@@ -28,6 +42,7 @@ const Home = () => {
   }
 
   const createGroup = () => {
+
     if (input === "") {
       alert("jancek")
     } else {
@@ -55,6 +70,8 @@ const Home = () => {
 
   }
   useEffect(() => {
+
+
     if (input.length > 5) {
       setDisable(false)
     } else {
@@ -69,6 +86,11 @@ const Home = () => {
       <div className="row m-auto d-flex justify-content-center">
         <div className="col-md-4 mx-5">
           <Card className='card-home card-search m-auto mt-5'>
+            {
+              allgroup.map((data, index) => (
+                console.log(data)
+              ))
+            }
             <Card.Body>
               <Card.Title>Search Group QNA</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">Search Group</Card.Subtitle>

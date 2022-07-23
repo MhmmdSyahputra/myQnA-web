@@ -10,9 +10,9 @@ const Group = () => {
   const [inputname, setInputName] = useState("")
   const [info, setInfo] = useState([]);
 
-  // window.addEventListener('load', () => {
-  //   Fetchdata();
-  // });
+  window.addEventListener('load', () => {
+    Fetchdata();
+  });
 
   // Fetch the required data using the get() method
   // const Fetchdata = () => {
@@ -44,9 +44,10 @@ const Group = () => {
   // }
 
   // read
-  useEffect(() => {
+  const Fetchdata = () => {
     const db = getDatabase();
     onValue(ref(db, 'groups/' + id), (snapshot) => {
+      setInfo([]);
       const data = snapshot.val()
       if (data !== null) {
         Object.values(data).map((alldata) => {
@@ -54,7 +55,18 @@ const Group = () => {
         })
       }
     })
-  }, [])
+  }
+  // useEffect(() => {
+  //   const db = getDatabase();
+  //   onValue(ref(db, 'groups/' + id), (snapshot) => {
+  //     const data = snapshot.val()
+  //     if (data !== null) {
+  //       Object.values(data).map((alldata) => {
+  //         setInfo((olddata) => [...olddata, alldata]);
+  //       })
+  //     }
+  //   })
+  // }, [])
 
 
   // const Fetchdata = () => {

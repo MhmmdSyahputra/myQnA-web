@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
-const AllChat = ({ data }) => {
+const AllChat = ({ data, uid }) => {
     // console.log(data);
     const [who, setWho] = useState("me")
     return (
         <>
-            <div style={{ width: '80%' }} className={"bubble-chat text-start bg-light text-dark m-2 p-3 shadow " + (who === 'me' ? 'cht-right ms-auto' : 'cht-left')}>
+            <div style={{ width: '80%' }} className={"bubble-chat text-start bg-light text-dark m-2 p-3 shadow " + (data.uid === uid ? 'cht-right ms-auto' : 'cht-left')}>
                 <h6 className='text-muted'>{data.name}</h6>
                 <div className="question">
                     {data.messege}

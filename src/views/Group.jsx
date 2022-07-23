@@ -14,7 +14,7 @@ const Group = () => {
   // read all cht
   useEffect(() => {
     const db = getDatabase();
-    onValue(ref(db, 'chat/' + id), (snapshot) => {
+    onValue(ref(db, 'groups/' + id + '/chat/'), (snapshot) => {
       setAllmessege([]);
       const data = snapshot.val()
       if (data !== null) {
@@ -33,7 +33,7 @@ const Group = () => {
   const sendmessege = () => {
     const db = getDatabase();
     const date = new Date().getTime();
-    push(ref(db, 'chat/' + id), {
+    push(ref(db, 'groups/' + id + '/chat/'), {
       uid: uid,
       name: inputname,
       messege: inputmessege,
@@ -51,7 +51,7 @@ const Group = () => {
             <div className="all-chat shadow" style={{ height: '350px', overflowY: 'scroll' }}>
               {
                 allmessege.map((data, index) => (
-                  <AllChat key={index} data={data} />
+                  <AllChat key={index} data={data} uid={uid} />
                 ))
               }
             </div>

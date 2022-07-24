@@ -50,9 +50,9 @@ const Home = () => {
       // ADD DATA TO FIREBASE
       const db = getDatabase();
       const date = new Date().getTime();
-      push(ref(db, 'groups/'), {
+      push(ref(db, 'groups/' + input + '/detail/'), {
         namegroup: input,
-        date: date
+        date_create: date
       }).then((docRef) => {
         setDisable(false)
         toast.success("Success ", {

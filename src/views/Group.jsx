@@ -8,7 +8,9 @@ const Group = () => {
   const [inputmessege, setInputmessege] = useState("")
   const [inputname, setInputName] = useState("")
   const [allmessege, setAllmessege] = useState([]);
-  const [uid, setUid] = useState(Math.floor(Math.random() * 1000000000));
+  const [groups, setGroups] = useState([]);
+  const [group, setGroup] = useState();
+  const [uid, setUid] = useState(Math.floor(Math.random() * 1000000000) * new Date());
 
 
   // read all cht
@@ -22,13 +24,13 @@ const Group = () => {
           setAllmessege((olddata) => [...olddata, alldata]);
         });
       }
-    });
+    })
   }, []);
-  allmessege.map((data, index) => (
-    console.log(data.name)
 
-  ), [])
-  // console.log(allmessege.name);
+  useEffect(() => {
+    localStorage.setItem('uid', JSON.stringify(uid));
+  }, [uid]);
+
   // send messege
   const sendmessege = () => {
     const db = getDatabase();
@@ -42,15 +44,17 @@ const Group = () => {
     setInputmessege("")
   }
   return (
+
     <>
       <div className="container">
         <div className="row">
           <div className="col-md-8 m-auto bg-dark text-light p-3" style={{ height: '92vh' }}>
             <h2 className='mb-3'>Group QnA {id}</h2>
 
-            <div className="all-chat shadow" style={{ height: '350px', overflowY: 'scroll' }}>
+            <div className="all-chat shadow" style={{ height: '350px', overflowY: 'scroll', overflow: 'auto' }}>
               {
                 allmessege.map((data, index) => (
+                  // console.log(data)
                   <AllChat key={index} data={data} uid={uid} />
                 ))
               }

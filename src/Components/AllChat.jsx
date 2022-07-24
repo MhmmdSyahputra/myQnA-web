@@ -1,8 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const AllChat = ({ data, uid }) => {
-    // console.log(data);
-    const [who, setWho] = useState("me")
+    const [uidlocal, setuidlocal] = useState([]);
+
+    useEffect(() => {
+        const uid = JSON.parse(localStorage.getItem('uid'));
+        if (uid) {
+            setuidlocal(uid);
+        }
+        console.log(uidlocal);
+    }, []);
+
+    useEffect(() => {
+        data.scrollIntoView({ behavior: "smooth" })
+    }, [])
+
     return (
         <>
             <div style={{ width: '80%' }} className={"bubble-chat text-start bg-light text-dark m-2 p-3 shadow " + (data.uid === uid ? 'cht-right ms-auto' : 'cht-left')}>
@@ -10,37 +22,11 @@ const AllChat = ({ data, uid }) => {
                 <div className="question">
                     {data.messege}
                 </div>
-            </div>
-            {/* <div style={{ width: '80%' }} className="bubble-chat text-start bg-light text-dark m-2 p-3 shadow">
-                <h6 className='text-muted'>Yusop</h6>
-                <div className="question">
-                    kenapa koding mudah?
+                <div style={{ float: "left", clear: "both" }}
+                    ref={(el) => { data = el; }}>
                 </div>
             </div>
-            <div style={{ width: '80%' }} className="bubble-chat text-start bg-light text-dark m-2 p-3 shadow">
-                <h6 className='text-muted'>Tiara</h6>
-                <div className="question">
-                    Dari mana saya harus mulai programming?
-                </div>
-            </div>
-            <div style={{ width: '80%' }} className="bubble-chat text-start bg-light text-dark m-2 p-3 shadow">
-                <h6 className='text-muted'>Novita</h6>
-                <div className="question">
-                    Kenapa saya sulit untuk belajar bahasa pemrograman
-                </div>
-            </div>
-            <div style={{ width: '80%' }} className="bubble-chat text-start bg-light text-dark m-2 p-3 shadow">
-                <h6 className='text-muted'>Aldi</h6>
-                <div className="question">
-                    Info Loker
-                </div>
-            </div>
-            <div style={{ width: '80%' }} className="bubble-chat text-start bg-light text-dark m-2 p-3 shadow">
-                <h6 className='text-muted'>Pane</h6>
-                <div className="question">
-                    apakah jadi programmer peluang kerja nya besar?
-                </div>
-            </div> */}
+
         </>
     )
 }

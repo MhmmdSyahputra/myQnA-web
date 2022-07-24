@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import AllChat from '../Components/AllChat';
 import { getDatabase, ref, push, onValue } from "firebase/database";
+import { IoMdSend } from 'react-icons/io'
 
 const Group = () => {
   let { id } = useParams();
@@ -48,10 +49,10 @@ const Group = () => {
     <>
       <div className="container">
         <div className="row">
-          <div className="col-md-8 m-auto bg-dark text-light p-3" style={{ height: '92vh' }}>
+          <div className="col-md-8 m-auto bg-dark text-light" style={{ height: '92.2vh', padding: '0' }}>
             <h2 className='mb-3'>Group QnA {id}</h2>
 
-            <div className="all-chat shadow" style={{ height: '60vh', overflowY: 'scroll', overflow: 'auto' }}>
+            <div className="all-chat shadow px-1" style={{ height: '60vh', overflow: 'auto', backgroundColor: '#1a1e20s' }}>
               {
                 allmessege.map((data, index) => (
                   // console.log(data)
@@ -67,7 +68,7 @@ const Group = () => {
 
               <div className="d-flex">
                 <textarea placeholder="Masukan Pertanyaan Anda" className='form-control me-2' onChange={e => setInputmessege(e.target.value)} value={inputmessege}></textarea>
-                <button onClick={() => sendmessege()} className='btn btn-primary'>Kirim</button>
+                <button onClick={() => sendmessege()} style={{ width: '10vh', background: '#6D62FF' }} className='btn '><IoMdSend className='fs-2 m-auto' /></button>
               </div>
             </div>
 

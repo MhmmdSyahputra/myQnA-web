@@ -9,9 +9,8 @@ const Group = () => {
   const [inputmessege, setInputmessege] = useState("")
   const [inputname, setInputName] = useState("")
   const [allmessege, setAllmessege] = useState([]);
-  const [groups, setGroups] = useState([]);
-  const [group, setGroup] = useState();
   const [uid, setUid] = useState(Math.floor(Math.random() * 1000000000) * new Date());
+  const [btndisable, setBtndisable] = useState(true);
 
 
   // read all cht
@@ -36,6 +35,7 @@ const Group = () => {
   const sendmessege = () => {
     const db = getDatabase();
     const date = new Date().getTime();
+
     push(ref(db, 'groups/' + id + '/chat/'), {
       uid: uid,
       name: inputname,
@@ -44,12 +44,21 @@ const Group = () => {
     });
     setInputmessege("")
   }
+
+  // cek input kosong atau tidak
+  useEffect(() => {
+    if (inputname.length > 0 && inputmessege.length > 0) {
+      setBtndisable(false)
+    } else {
+      setBtndisable(true)
+    }
+  })
   return (
 
     <>
-      <div className="container">
+      <div className="container groupcht-m">
         <div className="row">
-          <div className="col-md-8 m-auto bg-dark text-light" style={{ height: '92.2vh', padding: '0' }}>
+          <div className="col-md-8 m-auto bg-dark text-light" style={{ height: '92.1vh', padding: '0' }}>
             <h2 className='mb-3'>Group QnA {id}</h2>
 
             <div className="all-chat shadow px-1" style={{ height: '60vh', overflow: 'auto', backgroundColor: '#1a1e20s' }}>
@@ -62,13 +71,15 @@ const Group = () => {
             </div>
 
             <div className="input-question px-3 py-3" style={{ marginTop: '1vh' }}>
+
               <div className="col-md-4">
-                <input className='form-control me-2 mb-3' type="text" onChange={e => setInputName(e.target.value.replace(/\s/g, ''))} value={inputname} placeholder="Masukan Nama Anda" />
+                <input className='form-control me-2 mb-3' type="text" style={{ borderRadius: '15px' }} onChange={e => setInputName(e.target.value.replace(/\s/g, ''))} value={inputname} placeholder="Masukan Nama Anda" />
               </div>
 
               <div className="d-flex">
-                <textarea placeholder="Masukan Pertanyaan Anda" className='form-control me-2' onChange={e => setInputmessege(e.target.value)} value={inputmessege}></textarea>
-                <button onClick={() => sendmessege()} style={{ width: '10vh', background: '#6D62FF' }} className='btn '><IoMdSend className='fs-2 m-auto' /></button>
+                <textarea placeholder="Masukan Pertanyaan Anda" style={{ borderRadius: '15px' }} className='form-control me-2' onChange={e => setInputmessege(e.target.value)} value={inputmessege}></textarea>
+
+                <button onClick={() => sendmessege()} style={{ width: '10vh', background: '#6D62FF', borderRadius: '15px' }} className={'btn' + (btndisable ? 'disable' : 'enable')} disabled={btndisable} ><IoMdSend className='fs-2 m-auto' /></button>
               </div>
             </div>
 

@@ -27,6 +27,7 @@ border-top-right-radius: 0px;
   color: #212529;
   border: 3px solid #212529;
 }
+
 .card-home button:hover{
   background-color: #212529;
   color: #ffff;
@@ -46,6 +47,12 @@ border-top-right-radius: 0px;
 .cht-left{
   border-top-left-radius: 0px;
 }
+/* @media (min-width: 481px) and (max-width: 767px) {
+  body .groupcht-m{
+    background-color: #212529;
+  }
+  
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

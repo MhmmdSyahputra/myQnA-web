@@ -8,6 +8,7 @@ import toast from 'siiimple-toast';
 import 'siiimple-toast/dist/style.css';// style required
 import FirebaseConfig from '../config';
 import { getDatabase, ref, push, onValue } from "firebase/database";
+import Footer from '../Components/Footer';
 
 
 const Home = () => {
@@ -119,7 +120,7 @@ const Home = () => {
         </div>
 
       </div>
-
+      <Footer />
 
     </>
   )

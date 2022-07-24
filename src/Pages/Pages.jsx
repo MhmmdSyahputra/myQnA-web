@@ -13,7 +13,6 @@ const Pages = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/group/:id' element={<Group />} />
             </Routes>
-            <Footer />
         </>
     )
 }

@@ -51,7 +51,7 @@ const Group = () => {
           <div className="col-md-8 m-auto bg-dark text-light p-3" style={{ height: '92vh' }}>
             <h2 className='mb-3'>Group QnA {id}</h2>
 
-            <div className="all-chat shadow" style={{ height: '350px', overflowY: 'scroll', overflow: 'auto' }}>
+            <div className="all-chat shadow" style={{ height: '60vh', overflowY: 'scroll', overflow: 'auto' }}>
               {
                 allmessege.map((data, index) => (
                   // console.log(data)
@@ -60,7 +60,7 @@ const Group = () => {
               }
             </div>
 
-            <div className="input-question px-3 py-3">
+            <div className="input-question px-3 py-3" style={{ marginTop: '1vh' }}>
               <div className="col-md-4">
                 <input className='form-control me-2 mb-3' type="text" onChange={e => setInputName(e.target.value.replace(/\s/g, ''))} value={inputname} placeholder="Masukan Nama Anda" />
               </div>

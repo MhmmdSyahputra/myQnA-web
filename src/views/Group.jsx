@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import AllChat from '../Components/AllChat';
 import { getDatabase, ref, push, onValue } from "firebase/database";
 import { IoMdSend } from 'react-icons/io'
 
 const Group = () => {
+  let navigate = useNavigate();
   let { id } = useParams();
   const [inputmessege, setInputmessege] = useState("")
   const [inputname, setInputName] = useState("")
   const [allmessege, setAllmessege] = useState([]);
   const [uid, setUid] = useState(Math.floor(Math.random() * 1000000000) * new Date());
   const [btndisable, setBtndisable] = useState(true);
+
+  useEffect(() => {
+    const db = getDatabase();
+    onValue(ref(db, 'groups/' + id), (snapshot) => {
+      const data = snapshot.val()
+      if (data == null) {
+        navigate(`/`);
+      }
+    })
+  }, [])
 
 
   // read all cht
@@ -36,14 +47,15 @@ const Group = () => {
     const db = getDatabase();
     const now = new Date()
     const date = now.getHours() + ':' + now.getMinutes();
-
+    const time = date.toString()
     push(ref(db, 'groups/' + id + '/chat/'), {
       uid: uid,
       name: inputname,
       messege: inputmessege,
-      date: date
+      date: time
     });
     setInputmessege("")
+    console.log(time);
   }
 
   // cek input kosong atau tidak

@@ -1,30 +1,41 @@
 import React, { useEffect, useState } from 'react'
 
 const AllChat = ({ data, uid }) => {
-    const [uidlocal, setuidlocal] = useState([]);
+    const [thisMe, setThisMe] = useState(false)
 
-    useEffect(() => {
-        const uid = JSON.parse(localStorage.getItem('uid'));
-        if (uid) {
-            setuidlocal(uid);
-        }
-        console.log(uidlocal);
-    }, []);
+
 
     useEffect(() => {
         data.scrollIntoView({ behavior: "smooth" })
     }, [])
 
+
+
     return (
         <>
-            <div style={{ width: '80%' }} className={"bubble-chat text-start bg-light text-dark m-2 p-3 shadow " + (data.uid === uid ? 'cht-right ms-auto' : 'cht-left')}>
-                <h6 className='text-muted'>{data.name}</h6>
-                <div className="question">
-                    {data.messege}
+            <div style={{ width: '70%' }} className={(data.uid === uid ? 'ms-auto' : '')}>
+
+                <div className={'bubble-chat bg-light m-2 p-3 text-start text-dark shadow ' +
+                    (data.uid === uid ? 'cht-right' : 'cht-left')}
+                    style={{ clear: 'both', float: data.uid === uid ? 'right' : 'left', }}>
+
+                    <h6 className={'text-muted ' +
+                        (data.uid === uid ? 'text-end' : 'text-start')}>{data.name}</h6>
+
+                    <div>
+                        {data.messege}
+                    </div>
+
+                    <span className={'text-muted mx-2 ' +
+                        (data.uid === uid ? 'text-start' : 'text-end')}>
+                        {data.date}
+                    </span>
                 </div>
+
                 <div style={{ float: "left", clear: "both" }}
                     ref={(el) => { data = el; }}>
                 </div>
+
             </div>
 
         </>

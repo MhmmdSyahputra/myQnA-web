@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import toast from 'siiimple-toast';
 import 'siiimple-toast/dist/style.css';// style required
-import FirebaseConfig from '../config';
+import firebase from '../config';
 import { getDatabase, ref, push, onValue } from "firebase/database";
 import Footer from '../Components/Footer';
 
@@ -14,33 +14,38 @@ import Footer from '../Components/Footer';
 const Home = () => {
   let navigate = useNavigate();
   const [input, setInput] = useState("")
-  const [disable, setDisable] = useState(true)
+  const [disable_s, setDisable_s] = useState(true)
+  const [disable_c, setDisable_c] = useState(true)
   const [linkgroup, setLinkgroup] = useState("")
   const [inputsearch, setInputsearch] = useState("")
   const [pesansearch, setPesansearch] = useState("")
   const [allgroup, setAllgroup] = useState([])
+  const [groupis, setGroupis] = useState(false)
 
   const search = () => {
     const db = getDatabase();
-    onValue(ref(db, 'groups/'), (snapshot) => {
+
+    onValue(ref(db, 'groups/' + inputsearch), (snapshot) => {
       setAllgroup([]);
       const data = snapshot.val()
       if (data !== null) {
         Object.values(data).map((alldata) => {
+          grouptrue()
           setAllgroup((olddata) => [...olddata, alldata]);
         })
       }
     })
+  }
 
+  const grouptrue = () => {
 
-
-    if (inputsearch === allgroup) {
-      navigate(`/group/` + allgroup);
+    if (setAllgroup !== []) {
+      navigate(`/group/` + inputsearch);
     } else {
-      setInputsearch("")
       setPesansearch("Group Tidak ditemukan!")
     }
   }
+
 
   const createGroup = () => {
 
@@ -55,7 +60,7 @@ const Home = () => {
         namegroup: input,
         date_create: date
       }).then((docRef) => {
-        setDisable(false)
+        setDisable_c(false)
         toast.success("Success ", {
           position: "top|right",
           margin: 15,
@@ -70,12 +75,20 @@ const Home = () => {
     }
 
   }
-  useEffect(() => {
 
-    if (input.length > 5) {
-      setDisable(false)
+  useEffect(() => {
+    if (inputsearch.length > 5) {
+      setDisable_s(false)
     } else {
-      setDisable(true)
+      setDisable_s(true)
+    }
+  })
+
+  useEffect(() => {
+    if (input.length > 5) {
+      setDisable_c(false)
+    } else {
+      setDisable_c(true)
     }
   });
 
@@ -86,18 +99,18 @@ const Home = () => {
       <div className="row m-auto d-flex justify-content-center">
         <div className="col-md-4 mx-5">
           <Card className='card-home card-search m-auto mt-5'>
-            {
+            {/* {
               allgroup.map((data, index) => (
                 console.log(data)
               ))
-            }
+            } */}
             <Card.Body>
               <Card.Title>Search Group QNA</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">Search Group</Card.Subtitle>
               <Card.Text>
                 <input type="text" onChange={e => setInputsearch(e.target.value.replace(/\s/g, ''))} value={inputsearch} className='form-control ' placeholder='Name Group' />
                 <div className="pesan text-start text-danger mb-4">{pesansearch}</div>
-                <button onClick={() => search()} className='btn'>Search</button>
+                <button onClick={() => search()} className='btn' disabled={disable_s}>Search</button>
               </Card.Text>
             </Card.Body>
           </Card>
@@ -110,7 +123,7 @@ const Home = () => {
               <Card.Subtitle className="mb-2 text-muted">New Group</Card.Subtitle>
               <Card.Text>
                 <input type="text" value={input} onChange={e => setInput(e.target.value.replace(/\s/g, ''))} className='form-control mb-4' placeholder='New Name Group' />
-                <button onClick={() => createGroup()} disabled={disable} style={{ cursor: disable == true ? 'not-allowed' : "pointer" }} className='btn'>Create</button>
+                <button onClick={() => createGroup()} disabled={disable_c} className='btn'>Create</button>
               </Card.Text>
 
               <p className='text-light'>Link : <Link className='text-light' to={linkgroup}>{linkgroup}</Link></p>

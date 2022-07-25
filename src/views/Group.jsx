@@ -34,7 +34,8 @@ const Group = () => {
   // send messege
   const sendmessege = () => {
     const db = getDatabase();
-    const date = new Date().getTime();
+    const now = new Date()
+    const date = now.getHours() + ':' + now.getMinutes();
 
     push(ref(db, 'groups/' + id + '/chat/'), {
       uid: uid,

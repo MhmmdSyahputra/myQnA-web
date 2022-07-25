@@ -26,10 +26,10 @@ const AllChat = ({ data, uid }) => {
                         {data.messege}
                     </div>
 
-                    <span className={'text-muted mx-2 ' +
+                    <div className={'text-muted mx-2 ' +
                         (data.uid === uid ? 'text-start' : 'text-end')}>
                         {data.date}
-                    </span>
+                    </div>
                 </div>
 
                 <div style={{ float: "left", clear: "both" }}

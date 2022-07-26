@@ -15,12 +15,11 @@ import { AiOutlineCopy } from 'react-icons/ai'
 const Home = () => {
   let navigate = useNavigate();
   const [input, setInput] = useState("")
+  const [namenewgroup, setNamenewgroup] = useState("")
   const [disable_s, setDisable_s] = useState(true)
   const [disable_c, setDisable_c] = useState(true)
   const [linkgroup, setLinkgroup] = useState("")
   const [inputsearch, setInputsearch] = useState("")
-  const [pesansearch, setPesansearch] = useState("")
-  const [pesancreate, setPesancreate] = useState("")
   const [allgroup, setAllgroup] = useState([])
 
   // FUNGSI CARI GRUP | BUTTON SEARCH ONCLICK
@@ -54,18 +53,19 @@ const Home = () => {
     const db = getDatabase();
     const date = new Date().getTime();
 
-    onValue(ref(db, 'groups/' + input), (snapshot) => {
+    onValue(ref(db, 'groups/' + input + '/detail/'), (snapshot) => {
       const data = snapshot.val()
       if (data !== null) {
-        setPesancreate("Nama group sudah dipakai !")
         toast.alert("Nama Grup Sudah Dipakai! ", {
           position: "top|right",
           margin: 15,
           delay: 0,
           duration: 2000,
         })
+        setInput("")
         throw new Error("Here we stop");
-      } else if (data === null) {
+      } else {
+        setNamenewgroup(input)
         push(ref(db, 'groups/' + input + '/detail/'), {
           namegroup: input,
           date_create: date
@@ -81,16 +81,18 @@ const Home = () => {
           setInput("")
         })
       }
-
-
     })
 
+  }
 
-
-
-
-
-
+  const copylink = () => {
+    navigator.clipboard.writeText("http://my-qna-pt.vercel.app" + linkgroup)
+    toast.success("Link Disalin ", {
+      position: "top|right",
+      margin: 15,
+      delay: 0,
+      duration: 2000,
+    })
   }
 
 
@@ -130,7 +132,7 @@ const Home = () => {
         </div>
 
         <div className="col-md-4">
-          <Card className='card-home card-create mt-5'>
+          <Card className='card-home card-create mt-5' style={{ height: '80%' }}>
             <Card.Body>
               <Card.Title>Create New Group QNA</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">New Group</Card.Subtitle>
@@ -140,7 +142,9 @@ const Home = () => {
               </Card.Text>
 
               <p disabled='disabled' className={'text-light ' + (linkgroup !== '' ? '' : 'd-none')}>
-                <Link className='text-light me-2' to={linkgroup}>Go to Group</Link> <AiOutlineCopy className='fs-4' />
+                <div>Name Group : {namenewgroup} </div>
+                <Link className='text-light me-2' to={linkgroup}>Go to Group</Link>
+                <AiOutlineCopy style={{ cursor: 'pointer' }} onClick={() => copylink()} className='fs-4' />
               </p>
             </Card.Body>
           </Card>

@@ -21,7 +21,6 @@ const Group = () => {
         navigate('/notfound');
         throw new Error("Here we stop");
       }
-      throw new Error("Here we stop");
     })
   }, [])
 
@@ -45,8 +44,7 @@ const Group = () => {
   const sendmessege = () => {
     const db = getDatabase();
     const now = new Date()
-    const date = now.getHours().toString() + ':' + now.getMinutes().toString();
-    const time = date.toString()
+    const time = String(now.getHours() + ':' + now.getMinutes()).padStart(5, '0');
     push(ref(db, 'groups/' + id + '/chat/'), {
       uid: uid,
       name: inputname,
@@ -54,7 +52,6 @@ const Group = () => {
       date: time
     });
     setInputmessege("")
-    console.log(time);
   }
 
   // cek input kosong atau tidak

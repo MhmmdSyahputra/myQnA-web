@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Header from "../Components/Header";
 import HeaderNav from "../Components/Header";
 import Footer from "../Components/Footer";
+import Notfound from "../views/notfound";
 const Pages = () => {
     return (
         <>
@@ -12,6 +13,7 @@ const Pages = () => {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/group/:id' element={<Group />} />
+                <Route from="*" path='/notfound' element={<Notfound />} />
             </Routes>
         </>
     )

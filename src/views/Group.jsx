@@ -18,8 +18,10 @@ const Group = () => {
     onValue(ref(db, 'groups/' + id), (snapshot) => {
       const data = snapshot.val()
       if (data == null) {
-        navigate(`/`);
+        navigate('/notfound');
+        throw new Error("Here we stop");
       }
+      throw new Error("Here we stop");
     })
   }, [])
 
@@ -38,15 +40,12 @@ const Group = () => {
     })
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('uid', JSON.stringify(uid));
-  }, [uid]);
 
   // send messege
   const sendmessege = () => {
     const db = getDatabase();
     const now = new Date()
-    const date = now.getHours() + ':' + now.getMinutes();
+    const date = now.getHours().toString() + ':' + now.getMinutes().toString();
     const time = date.toString()
     push(ref(db, 'groups/' + id + '/chat/'), {
       uid: uid,

@@ -42,23 +42,43 @@ const Group = () => {
 
   // send messege
   const sendmessege = () => {
-    const db = getDatabase();
-    const now = new Date()
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const time = hours + ":" + minutes
-    // const time = String(now.getHours() + ':' + now.getMinutes()).padStart(5, '0');
-    push(ref(db, 'groups/' + id + '/chat/'), {
-      uid: uid,
-      name: inputname,
-      messege: inputmessege,
-      date: time
-    });
-    setInputmessege("")
+    let iduser = localStorage.getItem("iduser");
+    if (localStorage.getItem("iduser") !== null) {
+      const db = getDatabase();
+      const now = new Date()
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const time = hours + ":" + minutes
+      // const time = String(now.getHours() + ':' + now.getMinutes()).padStart(5, '0');
+      push(ref(db, 'groups/' + id + '/chat/'), {
+        uid: iduser,
+        name: inputname,
+        messege: inputmessege,
+        date: time
+      });
+      setInputmessege("")
+    } else {
+      const db = getDatabase();
+      const now = new Date()
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const time = hours + ":" + minutes
+      // const time = String(now.getHours() + ':' + now.getMinutes()).padStart(5, '0');
+      push(ref(db, 'groups/' + id + '/chat/'), {
+        uid: uid,
+        name: inputname,
+        messege: inputmessege,
+        date: time
+      });
+      setInputmessege("")
+      localStorage.setItem("iduser", uid);
+    }
+
   }
 
   // cek input kosong atau tidak
   useEffect(() => {
+
     if (inputname.length > 0 && inputmessege.length > 0) {
       setBtndisable(false)
     } else {

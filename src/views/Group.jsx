@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import AllChat from '../Components/AllChat';
 import { getDatabase, ref, push, onValue } from "firebase/database";
 import { IoMdSend } from 'react-icons/io'
+import { nanoid } from 'nanoid'
 
 const Group = () => {
   let navigate = useNavigate();
@@ -10,7 +11,6 @@ const Group = () => {
   const [inputmessege, setInputmessege] = useState("")
   const [inputname, setInputName] = useState("")
   const [allmessege, setAllmessege] = useState([]);
-  const [uid, setUid] = useState(Math.floor(Math.random() * 1000000000) * new Date());
   const [btndisable, setBtndisable] = useState(true);
 
   useEffect(() => {
@@ -42,35 +42,20 @@ const Group = () => {
 
   // send messege
   const sendmessege = () => {
-    let iduser = localStorage.getItem("iduser");
-    if (localStorage.getItem("iduser") !== null) {
-      const db = getDatabase();
-      const now = new Date()
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const time = hours + ":" + minutes
-      // const time = String(now.getHours() + ':' + now.getMinutes()).padStart(5, '0');
-      push(ref(db, 'groups/' + id + '/chat/'), {
-        uid: iduser,
-        name: inputname,
-        messege: inputmessege,
-        date: time
-      });
-      setInputmessege("")
-    } else {
-      const db = getDatabase();
-      const now = new Date()
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const time = hours + ":" + minutes
-      // const time = String(now.getHours() + ':' + now.getMinutes()).padStart(5, '0');
-      push(ref(db, 'groups/' + id + '/chat/'), {
-        uid: uid,
-        name: inputname,
-        messege: inputmessege,
-        date: time
-      });
-      setInputmessege("")
+    const db = getDatabase();
+    const now = new Date()
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const time = hours + ":" + minutes
+    const uid = nanoid()
+    push(ref(db, 'groups/' + id + '/chat/'), {
+      uid: localStorage.getItem("iduser") !== null ? localStorage.getItem("iduser") : uid,
+      name: inputname,
+      messege: inputmessege,
+      date: time
+    });
+    setInputmessege("")
+    if (localStorage.getItem("iduser") == null) {
       localStorage.setItem("iduser", uid);
     }
 
@@ -97,7 +82,7 @@ const Group = () => {
               {
                 allmessege.map((data, index) => (
                   // console.log(data)
-                  <AllChat key={index} data={data} uid={uid} />
+                  <AllChat key={index} data={data} />
                 ))
               }
             </div>

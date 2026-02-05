@@ -10,6 +10,8 @@ import firebase from '../config';
 import { getDatabase, ref, push, onValue } from "firebase/database";
 import Footer from '../Components/Footer';
 import { AiOutlineCopy } from 'react-icons/ai'
+import { HiOutlineSearch, HiOutlinePlus, HiOutlineUsers } from 'react-icons/hi'
+import { BiLinkExternal } from 'react-icons/bi'
 
 
 const Home = () => {
@@ -117,39 +119,176 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <div className="row m-auto d-flex justify-content-center">
-        <div className="col-md-4 mx-5">
-          <Card className='card-home card-search m-auto mt-5'>
-            <Card.Body>
-              <Card.Title>Search Group QNA</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">Search Group</Card.Subtitle>
-              <Card.Text>
-                <input type="text" onChange={e => setInputsearch(e.target.value.replace(/\s/g, ''))} value={inputsearch} className='form-control mb-4' placeholder='Name Group' />
-                <button onClick={() => search()} className='btn' disabled={disable_s}>Search</button>
-              </Card.Text>
-            </Card.Body>
+      <div className="container-fluid py-5" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', minHeight: '80vh' }}>
+        <div className="container">
+          <div className="row justify-content-center g-4">
+            <div className="col-lg-5 col-md-6">
+              <Card className='card-home card-search h-100 border-0 shadow-lg' style={{ borderRadius: '20px', background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)' }}>
+                <Card.Body className="p-4">
+                  <div className="text-center mb-4">
+                    <div className="d-inline-flex align-items-center justify-content-center mb-3" style={{ width: '60px', height: '60px', background: 'linear-gradient(135deg, #667eea, #764ba2)', borderRadius: '50%' }}>
+                      <HiOutlineSearch className="text-white" size={24} />
+                    </div>
+                    <Card.Title className="h4 mb-2" style={{ color: '#2d3748' }}>Search Group QNA</Card.Title>
+                    <Card.Subtitle className="text-muted">Find and join existing groups</Card.Subtitle>
+                  </div>
+                  <Card.Text>
+                    <div className="mb-4">
+                      <input 
+                        type="text" 
+                        onChange={e => setInputsearch(e.target.value.replace(/\s/g, ''))} 
+                        value={inputsearch} 
+                        className='form-control' 
+                        placeholder='Enter group name...' 
+                        style={{ 
+                          borderRadius: '15px', 
+                          border: '2px solid #e2e8f0', 
+                          padding: '12px 20px',
+                          fontSize: '16px',
+                          transition: 'all 0.3s ease'
+                        }}
+                        onFocus={(e) => e.target.style.borderColor = '#667eea'}
+                        onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && !disable_s) {
+                            search();
+                          }
+                        }}
+                      />
+                    </div>
+                    <button 
+                      onClick={() => search()} 
+                      className='btn btn-primary w-100' 
+                      disabled={disable_s}
+                      style={{
+                        background: disable_s ? '#cbd5e0' : 'linear-gradient(135deg, #667eea, #764ba2)',
+                        border: 'none',
+                        borderRadius: '15px',
+                        padding: '12px',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        transition: 'all 0.3s ease',
+                        transform: disable_s ? 'none' : 'translateY(0)'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!disable_s) {
+                          e.target.style.transform = 'translateY(-2px)';
+                          e.target.style.boxShadow = '0 10px 25px rgba(102, 126, 234, 0.3)';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!disable_s) {
+                          e.target.style.transform = 'translateY(0)';
+                          e.target.style.boxShadow = 'none';
+                        }
+                      }}
+                    >
+                      <HiOutlineSearch className="me-2" />
+                      Search Group
+                    </button>
+                  </Card.Text>
+                </Card.Body>
           </Card>
         </div>
 
-        <div className="col-md-4">
-          <Card className='card-home card-create mt-5' style={{ height: '80%' }}>
-            <Card.Body>
-              <Card.Title>Create New Group QNA</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">New Group</Card.Subtitle>
-              <Card.Text>
-                <input type="text" value={input} onChange={e => setInput(e.target.value.replace(/\s/g, ''))} className='form-control mb-4' placeholder='New Name Group' />
-                <button onClick={() => createGroup()} disabled={disable_c} className='btn'>Create</button>
-              </Card.Text>
+            <div className="col-lg-5 col-md-6">
+              <Card className='card-home card-create h-100 border-0 shadow-lg' style={{ borderRadius: '20px', background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)' }}>
+                <Card.Body className="p-4">
+                  <div className="text-center mb-4">
+                    <div className="d-inline-flex align-items-center justify-content-center mb-3" style={{ width: '60px', height: '60px', background: 'linear-gradient(135deg, #48bb78, #38a169)', borderRadius: '50%' }}>
+                      <HiOutlinePlus className="text-white" size={24} />
+                    </div>
+                    <Card.Title className="h4 mb-2" style={{ color: '#2d3748' }}>Create New Group</Card.Title>
+                    <Card.Subtitle className="text-muted">Start your own QnA community</Card.Subtitle>
+                  </div>
+                  <Card.Text>
+                    <div className="mb-4">
+                      <input 
+                        type="text" 
+                        value={input} 
+                        onChange={e => setInput(e.target.value.replace(/\s/g, ''))} 
+                        className='form-control' 
+                        placeholder='Enter group name...' 
+                        style={{ 
+                          borderRadius: '15px', 
+                          border: '2px solid #e2e8f0', 
+                          padding: '12px 20px',
+                          fontSize: '16px',
+                          transition: 'all 0.3s ease'
+                        }}
+                        onFocus={(e) => e.target.style.borderColor = '#48bb78'}
+                        onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && !disable_c) {
+                            createGroup();
+                          }
+                        }}
+                      />
+                    </div>
+                    <button 
+                      onClick={() => createGroup()} 
+                      disabled={disable_c} 
+                      className='btn btn-success w-100'
+                      style={{
+                        background: disable_c ? '#cbd5e0' : 'linear-gradient(135deg, #48bb78, #38a169)',
+                        border: 'none',
+                        borderRadius: '15px',
+                        padding: '12px',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        transition: 'all 0.3s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!disable_c) {
+                          e.target.style.transform = 'translateY(-2px)';
+                          e.target.style.boxShadow = '0 10px 25px rgba(72, 187, 120, 0.3)';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!disable_c) {
+                          e.target.style.transform = 'translateY(0)';
+                          e.target.style.boxShadow = 'none';
+                        }
+                      }}
+                    >
+                      <HiOutlinePlus className="me-2" />
+                      Create Group
+                    </button>
+                  </Card.Text>
 
-              <p disabled='disabled' className={'text-light ' + (linkgroup !== '' ? '' : 'd-none')}>
-                <div>Name Group : {namenewgroup} </div>
-                <Link className='text-light me-2' to={linkgroup}>Go to Group</Link>
-                <AiOutlineCopy style={{ cursor: 'pointer' }} onClick={() => copylink()} className='fs-4' />
-              </p>
-            </Card.Body>
+                  <div className={linkgroup !== '' ? 'mt-4 p-3 rounded-3' : 'd-none'} style={{ background: 'linear-gradient(135deg, #e6fffa, #b2f5ea)', border: '1px solid #81e6d9' }}>
+                    <div className="d-flex align-items-center mb-2">
+                      <HiOutlineUsers className="text-success me-2" />
+                      <small className="fw-bold text-success">Group Created Successfully!</small>
+                    </div>
+                    <div className="mb-2">
+                      <small className="text-muted">Group Name:</small>
+                      <div className="fw-semibold" style={{ color: '#2d3748' }}>{namenewgroup}</div>
+                    </div>
+                    <div className="d-flex align-items-center gap-2">
+                      <Link 
+                        className='btn btn-sm btn-outline-success d-flex align-items-center' 
+                        to={linkgroup}
+                        style={{ borderRadius: '10px', textDecoration: 'none' }}
+                      >
+                        <BiLinkExternal className="me-1" size={14} />
+                        Go to Group
+                      </Link>
+                      <button 
+                        onClick={() => copylink()} 
+                        className="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        style={{ borderRadius: '10px' }}
+                        title="Copy link"
+                      >
+                        <AiOutlineCopy size={14} />
+                      </button>
+                    </div>
+                  </div>
+                </Card.Body>
           </Card>
+            </div>
+          </div>
         </div>
-
       </div>
       <Footer />
 

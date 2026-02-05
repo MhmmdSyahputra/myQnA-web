@@ -36,3 +36,142 @@
     transform: rotate(360deg);
   }
 }
+
+/* Custom styles for chat */
+.bubble-chat {
+  position: relative;
+  margin-bottom: 10px !important;
+}
+
+.bubble-chat.cht-right {
+  background: linear-gradient(135deg, #6D62FF, #8b7fff) !important;
+  color: white !important;
+}
+
+.bubble-chat.cht-right .text-muted {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.bubble-chat.cht-left {
+  background: #f8f9fa !important;
+  border: 1px solid #e9ecef;
+}
+
+.all-chat {
+  scrollbar-width: thin;
+  scrollbar-color: #6D62FF #1a1e20;
+}
+
+.all-chat::-webkit-scrollbar {
+  width: 6px;
+}
+
+.all-chat::-webkit-scrollbar-track {
+  background: #1a1e20;
+  border-radius: 10px;
+}
+
+.all-chat::-webkit-scrollbar-thumb {
+  background: #6D62FF;
+  border-radius: 10px;
+}
+
+.all-chat::-webkit-scrollbar-thumb:hover {
+  background: #5a52d5;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .groupcht-m .col-md-8 {
+    margin: 0 !important;
+    padding: 10px !important;
+  }
+  
+  .all-chat {
+    height: 50vh !important;
+  }
+  
+  .bubble-chat {
+    width: 85% !important;
+    max-width: 85% !important;
+  }
+}
+
+/* Input styling */
+.form-control:focus {
+  border-color: #6D62FF;
+  box-shadow: 0 0 0 0.2rem rgba(109, 98, 255, 0.25);
+}
+
+/* Home page specific styles */
+.card-home {
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.card-home:hover::before {
+  left: 100%;
+}
+
+.card-home:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+}
+
+/* Button animations */
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Success notification styling */
+.success-notification {
+  animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive improvements for home */
+@media (max-width: 768px) {
+  .card-home {
+    margin: 0 15px;
+  }
+  
+  .container-fluid {
+    padding: 30px 15px !important;
+  }
+}
+
+/* Glass morphism effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}

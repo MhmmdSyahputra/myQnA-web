@@ -36,6 +36,13 @@ const Group = () => {
           setAllmessege((olddata) => [...olddata, alldata]);
         });
       }
+      // Auto scroll to bottom when new message arrives
+      setTimeout(() => {
+        const chatContainer = document.querySelector('.all-chat');
+        if (chatContainer) {
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+      }, 100);
     })
   }, []);
 
@@ -78,7 +85,13 @@ const Group = () => {
           <div className="col-md-8 m-auto bg-dark text-light" style={{ height: '92.1vh', padding: '0' }}>
             <h2 className='mb-3'>Group QnA {id}</h2>
 
-            <div className="all-chat shadow px-1" style={{ height: '60vh', overflow: 'auto', backgroundColor: '#1a1e20s' }}>
+            <div className="all-chat shadow px-1" style={{ 
+              height: '60vh', 
+              overflow: 'auto', 
+              backgroundColor: '#1a1e20', 
+              borderRadius: '10px',
+              border: '1px solid #333'
+            }}>
               {
                 allmessege.map((data, index) => (
                   // console.log(data)
@@ -94,9 +107,42 @@ const Group = () => {
               </div>
 
               <div className="d-flex">
-                <textarea placeholder="Masukan Pertanyaan Anda" style={{ borderRadius: '15px' }} className='form-control me-2' onChange={e => setInputmessege(e.target.value)} value={inputmessege}></textarea>
+                <textarea 
+                  placeholder="Masukan Pertanyaan Anda" 
+                  style={{ 
+                    borderRadius: '15px',
+                    resize: 'vertical',
+                    minHeight: '45px',
+                    maxHeight: '120px'
+                  }} 
+                  className='form-control me-2' 
+                  onChange={e => setInputmessege(e.target.value)} 
+                  value={inputmessege}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && e.shiftKey) {
+                      // Allow new line with Shift+Enter
+                      return;
+                    } else if (e.key === 'Enter' && !btndisable) {
+                      e.preventDefault();
+                      sendmessege();
+                    }
+                  }}
+                ></textarea>
 
-                <button onClick={() => sendmessege()} style={{ width: '10vh', background: '#6D62FF', borderRadius: '15px' }} className={'btn' + (btndisable ? 'disable' : 'enable')} disabled={btndisable} ><IoMdSend className='fs-2 m-auto' /></button>
+                <button 
+                  onClick={() => sendmessege()} 
+                  style={{ 
+                    width: '10vh', 
+                    background: btndisable ? '#666' : '#6D62FF', 
+                    borderRadius: '15px',
+                    border: 'none',
+                    transition: 'all 0.3s ease'
+                  }} 
+                  className={btndisable ? 'btn btn-secondary' : 'btn btn-primary'} 
+                  disabled={btndisable}
+                >
+                  <IoMdSend className='fs-2 m-auto' />
+                </button>
               </div>
             </div>
 

@@ -44,7 +44,7 @@ const Home = () => {
 
   // FUNGSI INI BERJALAN KETIKA DATA YG DICARI DITEMUKAN
   const grouptrue = () => {
-    if (allgroup !== []) {
+    if (allgroup.length > 0) {
       navigate(`/group/` + inputsearch);
     }
   }

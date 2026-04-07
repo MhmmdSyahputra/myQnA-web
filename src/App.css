@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -38,6 +41,27 @@
 }
 
 /* Custom styles for chat */
+
+.App-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Page body (main area) should expand so page footers go to bottom */
+.page-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make page specific wrappers expand so footers are pushed to bottom */
+.home-wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
 .bubble-chat {
   position: relative;
   margin-bottom: 10px !important;

@@ -7,11 +7,13 @@ const Pages = () => {
   return (
     <>
       <HeaderNav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/group/:id" element={<Group />} />
-        <Route from="*" path="/notfound" element={<Notfound />} />
-      </Routes>
+      <div className="page-body">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/group/:id" element={<Group />} />
+          <Route from="*" path="/notfound" element={<Notfound />} />
+        </Routes>
+      </div>
     </>
   );
 };
